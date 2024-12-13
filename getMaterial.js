@@ -4,11 +4,11 @@ import { mx_noise_float, color, cross, dot, float, positionLocal, sign, step, Fn
 import portrait from "./artem.png?url";
 
 let pallete = [
-  '#FF1493',
-  '#FF69B4',
+  '#6923c2',
+  '#9160e6',
   '#FF6347',
   '#FFA500',
-  '#FFD700',
+  '#ffeb23',
 ];
 
 export default function gerMaterial({
@@ -20,7 +20,7 @@ export default function gerMaterial({
   let material = new THREE.NodeMaterial({
     wireframe: true
   });
-
+  material.side = THREE.DoubleSide;
   const uColor1 = uniform(color(pallete[0]));
   const uColor2 = uniform(color(pallete[1]));
   const uColor3 = uniform(color(pallete[2]));
@@ -29,7 +29,7 @@ export default function gerMaterial({
 
   const asciiCode = Fn(()=>{
     const textureColor = texture(uTexture, attribute('aPixelUV'));
-    const brightness = pow(textureColor.r, 3.2).add(attribute('aRandom').mul(0.02));
+    const brightness = pow(textureColor.r, 2.2).add(attribute('aRandom').mul(0.02));
     const asciiUV = vec2(
       uv().x.div(length).add(floor(brightness.mul(length)).div(length)),
       uv().y
